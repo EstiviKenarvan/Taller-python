@@ -6,7 +6,15 @@ def adivina_el_numero(numero):
     contador = 0
     while True:
         entrada = input("Adivina el número entre 1 y 100: ")
-        prediccion = int(entrada)
+        if entrada == "":
+            print("No escribiste nada, intenta de nuevo.")
+            continue
+
+        try:
+            prediccion = int(entrada)
+        except ValueError:
+            print("Eso no es un número válido, intenta de nuevo.")
+            continue
         contador += 1
 
         if prediccion == numero:
