@@ -87,10 +87,29 @@ def mostrar_disponibles():
 
 
 def mostrar_menu():
-    print("        SISTEMA DE BIBLIOTECA")
-    print("1. Agregar libro")
-    print("2. Buscar libro")
-    print("3. Prestar libro")
-    print("4. Devolver libro")
-    print("5. Mostrar libros disponibles")
-    print("6. Salir")
+    while True:
+        print("\n--- SISTEMA DE BIBLIOTECA ---")
+        print("1. Agregar libro")
+        print("2. Buscar libro")
+        print("3. Prestar libro")
+        print("4. Devolver libro")
+        print("5. Mostrar libros disponibles")
+        print("6. Salir")
+        
+        opcion = input("Selecciona una opcion: ")
+        
+        if opcion == "1":
+            agregar_libro()
+        elif opcion == "2":
+            buscar_libro()
+        elif opcion == "3":
+            prestar_libro()
+        elif opcion == "4":
+            devolver_libro()
+        elif opcion == "5":
+            mostrar_disponibles()
+        elif opcion == "6":
+            print("Hasta luego!")
+            break 
+        else:
+            print("Opcion invalida. Elige un numero del 1 al 6.")
