@@ -27,15 +27,27 @@ def mostrar_inventario():
         for producto in inventario:
             print("Producto:", producto[0], "| Cantidad:", producto[1])
         print("------------------")
+#correccion de errores en el codigo de inventario.
 def vender_producto():
     nombre = input("Nombre del producto a vender: ")
 
     encontrado = False
     for producto in inventario:
         if producto[0] == nombre:
-            inventario.remove(producto)
-            print("Producto vendido y retirado del inventario.")
             encontrado = True
+            cantidad_vender = int(input(f"¿Cuántas unidades de '{nombre}' vas a vender?: "))
+            
+            # Verificar stock
+            if cantidad_vender <= producto[1]:
+                producto[1] -= cantidad_vender
+                print(f"Venta exitosa. Quedan {producto[1]} unidades en stock.")
+                
+                # Retirar de la lista si se acaba
+                if producto[1] == 0:
+                    inventario.remove(producto)
+                    print(f"El producto '{nombre}' se ha agotado y fue retirado del inventario.")
+            else:
+                print(f"Error: No tienes suficiente stock. Solo te quedan {producto[1]} unidades.")
             break
 
     if encontrado == False:
