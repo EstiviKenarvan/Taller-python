@@ -27,3 +27,70 @@ def buscar_libro():
     genero = input("Genero a buscar (deja vacio para ignorar): ")
 
     resultados = []
+
+    for libro in libros:
+        coincide_titulo = titulo == "" or titulo.lower() in libro["titulo"].lower()
+        coincide_autor = autor == "" or autor.lower() in libro["autor"].lower()
+        coincide_genero = genero == "" or genero.lower() in libro["genero"].lower()
+
+        if coincide_titulo and coincide_autor and coincide_genero:
+            resultados.append(libro)
+
+    return resultados
+
+
+def prestar_libro(titulo):
+    # Busca el libro por titulo y, si hay copias disponibles, lo presta
+    for libro in libros:
+        if libro["titulo"].lower() == titulo.lower():
+            if libro["copias_disponibles"] > 0:
+                libro["copias_disponibles"] -= 1
+                print("Prestamo exitoso:", libro["titulo"])
+                print("Copias disponibles ahora:", libro["copias_disponibles"])
+            else:
+                print("No hay copias disponibles de:", libro["titulo"])
+            return
+
+    print("El libro no se encontro:", titulo)
+
+
+def devolver_libro(titulo):
+    # Busca el libro por titulo y, si estaba prestado, lo devuelve
+    for libro in libros:
+        if libro["titulo"].lower() == titulo.lower():
+            if libro["copias_disponibles"] < libro["copias_totales"]:
+                libro["copias_disponibles"] += 1
+                print("Devolucion exitosa:", libro["titulo"])
+                print("Copias disponibles ahora:", libro["copias_disponibles"])
+            else:
+                print("Todas las copias ya estaban en la biblioteca:", libro["titulo"])
+            return
+
+    print("El libro no se encontro:", titulo)
+
+
+def mostrar_disponibles():
+    # Muestra todos los libros que tienen al menos una copia disponible
+    hay_disponibles = False
+
+    for libro in libros:
+        if libro["copias_disponibles"] > 0:
+            hay_disponibles = True
+            print("Titulo:", libro["titulo"])
+            print("Autor:", libro["autor"])
+            print("Genero:", libro["genero"])
+            print("Disponibles:", libro["copias_disponibles"], "/", libro["copias_totales"])
+            print("---")
+
+    if not hay_disponibles:
+        print("No hay libros disponibles en este momento.")
+
+
+def mostrar_menu():
+    print("        SISTEMA DE BIBLIOTECA")
+    print("1. Agregar libro")
+    print("2. Buscar libro")
+    print("3. Prestar libro")
+    print("4. Devolver libro")
+    print("5. Mostrar libros disponibles")
+    print("6. Salir")
